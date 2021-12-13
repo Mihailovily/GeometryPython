@@ -23,6 +23,8 @@ while running:
             actions.jump(width, height, screen)
     screen.fill((0, 0, 0))
     pygame.draw.line(screen, (255, 255, 255), (0, height - height // 4), (width, height - height // 4), 1)  # floor
-    pygame.draw.rect(screen, (255, 255, 255), (width // 3, height - height // 4 - 69, 70, 70), 1)  # cube
+    cube = actions.load_image("cube.png")  # cube
+    cube = pygame.transform.scale(cube, (70, 70))
+    screen.blit(cube, (width // 3, height - height // 4 - 70))
     pygame.display.flip()
 pygame.quit()
