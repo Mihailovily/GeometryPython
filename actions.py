@@ -16,8 +16,8 @@ def rot(image, angle):
 
 def jump(width, height, screen):
     run = True
-    v2 = 300
-    v = 0
+    v2 = 400
+    v = 600
     y = 0
     shift = 0
     clock = pygame.time.Clock()
@@ -35,8 +35,9 @@ def jump(width, height, screen):
             cube = pygame.transform.scale(cube, (70, 70))
             cube = rot(cube, -for_rotate)
         pygame.draw.line(screen, (255, 255, 255), (0, height - height // 4), (width, height - height // 4), 1)
-        pygame.draw.line(screen, (255, 255, 255), (width // 3 + 35, 0), (width // 3 + 35, 600), 1)
-        screen.blit(cube, (width // 3, height - height // 4 - 70 - y))
+        screen.blit(cube, (
+            width // 3 - (cube.get_rect()[2] - 70) // 2,
+            height - height // 4 - 70 - y - (cube.get_rect()[2] - 70) // 2))
         pygame.display.flip()
         if y > 140 and abs(v) == v:
             v = -v
