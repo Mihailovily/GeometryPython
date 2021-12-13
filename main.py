@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from tkinter import *
 import actions
@@ -11,7 +13,10 @@ size = width, height = 800, 600
 screen = pygame.display.set_mode(size)
 running = True
 while running:
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    if bool(events):
+        events = [events[0]]
+    for event in events:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
