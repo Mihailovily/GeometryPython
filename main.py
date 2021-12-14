@@ -1,8 +1,8 @@
-import time
-
 import pygame
 from tkinter import *
 import actions
+import loading_screen
+import cube
 
 root = Tk()
 height = root.winfo_screenheight()
@@ -12,7 +12,10 @@ pygame.init()
 size = width, height = 800, 600
 screen = pygame.display.set_mode(size)
 running = True
+loading = loading_screen.Loading()
+cube = cube.Cube(width, height, screen)
 while running:
+    screen.fill((0, 0, 0))
     events = pygame.event.get()
     if bool(events):
         events = [events[0]]
@@ -20,11 +23,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            actions.jump(width, height, screen)
-    screen.fill((0, 0, 0))
-    pygame.draw.line(screen, (255, 255, 255), (0, height - height // 4), (width, height - height // 4), 1)  # floor
-    cube = actions.load_image("cube.png")  # cube
-    cube = pygame.transform.scale(cube, (70, 70))
-    screen.blit(cube, (width // 3, height - height // 4 - 70))
+            cube.jump()
+            cube.show()
+    loading.show(screen)
+    cube.show()
     pygame.display.flip()
+
 pygame.quit()
