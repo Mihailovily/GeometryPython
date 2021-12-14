@@ -4,8 +4,8 @@ import actions
 
 class Cube:
     def __init__(self, width, height, screen):
-        self.v2 = 0.48
-        self.v = 0.75
+        self.v2 = 390
+        self.v = 600
         self.y = 0
         self.shift = 0
         self.cube = pygame.sprite.Sprite()
@@ -18,8 +18,12 @@ class Cube:
         self.height = height
         self.screen = screen
         self.counter = 0
+        self.clock = pygame.time.Clock()
 
     def jump(self):
+        self.time = self.clock.tick() / 1000
+        if self.time > 0.002:
+            self.time = 0.002
         if self.cords[1] < self.height - self.height // 4 - 70 - 140 and abs(self.v) == self.v:
             self.v = -self.v
         self.y += self.v * self.time  # v * t в с/

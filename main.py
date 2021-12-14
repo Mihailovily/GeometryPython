@@ -25,7 +25,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             cube.jump()
             cube.show()
-    loading.show(screen)
+    # loading.show(screen)
     cube.show()
     pygame.display.flip()
 
