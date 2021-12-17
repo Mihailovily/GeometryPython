@@ -32,9 +32,9 @@ while running:
             field.show()
     # loading.show(screen)
     field.show()
-    pygame.draw.rect(screen, (0, 0, 0), (400, height - height // 4 - 70, 70, 70))
-    pygame.draw.rect(screen, (0, 0, 0), (470, height - height // 4 - 70, 70, 70))
-    pygame.draw.rect(screen, (0, 0, 0), (540, height - height // 4 - 70, 70, 70))
+    # pygame.draw.rect(screen, (0, 0, 0), (400, height - height // 4 - 70, 70, 70))
+    # pygame.draw.rect(screen, (0, 0, 0), (470, height - height // 4 - 70, 70, 70))
+    # pygame.draw.rect(screen, (0, 0, 0), (540, height - height // 4 - 70, 70, 70))
     pygame.display.flip()
 
 pygame.quit()

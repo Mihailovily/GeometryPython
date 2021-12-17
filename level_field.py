@@ -109,8 +109,8 @@ class LevelField:
             else:
                 self.cube.image = pygame.transform.scale(rot(load_image('cube.png'), 180),
                                                          (70, 70))
-        if self.cube.rect[0] < 350 and self.cube.rect[0] > 300:
-            self.cube_jump()
+        # if self.cube.rect[0] < 350 and self.cube.rect[0] > 300:
+        #     self.cube_jump()
         # move ground squares
         if not self.cube.moving:
             self.move = self.v_ground * self.time
