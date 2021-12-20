@@ -1,6 +1,7 @@
 import pygame
 from cube import Cube
-from actions import load_image, rot
+from actions import load_image, rotation
+from drawing import backgroundDraw
 
 
 class LevelField:
@@ -20,17 +21,7 @@ class LevelField:
 
         bg = load_image("bg.png")
 
-        self.bg1 = pygame.sprite.Sprite(self.field)
-        self.bg1.image = bg
-        self.bg1.rect = self.bg1.image.get_rect()
-        self.bg1.rect.x = 0
-        self.bg1.rect.y = -(2048 - height)
-
-        self.bg2 = pygame.sprite.Sprite(self.field)
-        self.bg2.image = bg
-        self.bg2.rect = self.bg2.image.get_rect()
-        self.bg2.rect.x = 2048
-        self.bg2.rect.y = -(2048 - height)
+        self.bg1, self.bg2 = backgroundDraw(height, bg, self.field)
 
         self.ground_square1 = pygame.sprite.Sprite(self.field)
         self.ground_square1.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
@@ -107,7 +98,7 @@ class LevelField:
             if self.cube.counter % 2 == 0:
                 self.cube.image = pygame.transform.scale(load_image('cube.png'), (70, 70))
             else:
-                self.cube.image = pygame.transform.scale(rot(load_image('cube.png'), 180),
+                self.cube.image = pygame.transform.scale(rotation(load_image('cube.png'), 180),
                                                          (70, 70))
         # if self.cube.rect[0] < 350 and self.cube.rect[0] > 300:
         #     self.cube_jump()

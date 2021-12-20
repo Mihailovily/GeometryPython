@@ -36,8 +36,8 @@ class Cube(pygame.sprite.Sprite):
             if self.counter % 2 == 0:
                 self.image = self.cube
             else:
-                self.image = actions.rot(self.cube, 180)
-            self.image = actions.rot(self.image, -self.for_rotate)
+                self.image = actions.rotation(self.cube, 180)
+            self.image = actions.rotation(self.image, -self.for_rotate)
         if self.moving:
             self.rect = (
                 self.x - (self.image.get_rect()[2] - 70) // 2,

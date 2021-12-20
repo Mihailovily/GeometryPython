@@ -8,9 +8,6 @@ def load_image(name):
     return image
 
 
-def rot(image, angle):
+def rotation(image, angle):
     rotated_image = pygame.transform.rotate(image, angle)
-
     return rotated_image
-
-
