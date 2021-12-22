@@ -1,7 +1,7 @@
 import pygame
 from cube import Cube
 from actions import load_image, rotation
-from drawing import backgroundDraw
+from drawing import backgroundDraw, groundDraw
 
 
 class LevelField:
@@ -20,50 +20,12 @@ class LevelField:
         self.v_cube = self.v_ground
 
         bg = load_image("bg.png")
+        ground = load_image("ground.png")
 
         self.bg1, self.bg2 = backgroundDraw(height, bg, self.field)
 
-        self.ground_square1 = pygame.sprite.Sprite(self.field)
-        self.ground_square1.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square1.rect = self.ground_square1.image.get_rect()
-        self.ground_square1.rect.x = 0
-        self.ground_square1.rect.y = height - height // 4
-
-        self.ground_square2 = pygame.sprite.Sprite(self.field)
-        self.ground_square2.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square2.rect = self.ground_square1.image.get_rect()
-        self.ground_square2.rect.x = 350
-        self.ground_square2.rect.y = height - height // 4
-
-        self.ground_square3 = pygame.sprite.Sprite(self.field)
-        self.ground_square3.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square3.rect = self.ground_square1.image.get_rect()
-        self.ground_square3.rect.x = 700
-        self.ground_square3.rect.y = height - height // 4
-
-        self.ground_square4 = pygame.sprite.Sprite(self.field)
-        self.ground_square4.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square4.rect = self.ground_square1.image.get_rect()
-        self.ground_square4.rect.x = 1050
-        self.ground_square4.rect.y = height - height // 4
-
-        self.ground_square5 = pygame.sprite.Sprite(self.field)
-        self.ground_square5.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square5.rect = self.ground_square1.image.get_rect()
-        self.ground_square5.rect.x = 1400
-        self.ground_square5.rect.y = height - height // 4
-
-        self.ground_square6 = pygame.sprite.Sprite(self.field)
-        self.ground_square6.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square6.rect = self.ground_square1.image.get_rect()
-        self.ground_square6.rect.x = 1750
-        self.ground_square6.rect.y = height - height // 4
-
-        self.ground_square7 = pygame.sprite.Sprite(self.field)
-        self.ground_square7.image = pygame.transform.scale(load_image("ground.png"), (350, 350))
-        self.ground_square7.rect = self.ground_square1.image.get_rect()
-        self.ground_square7.rect.x = 2100
-        self.ground_square7.rect.y = height - height // 4
+        self.ground_square1, self.ground_square2, self.ground_square3, self.ground_square4, self.ground_square5, \
+        self.ground_square6, self.ground_square7 = groundDraw(height, ground, self.field)
 
         self.cube = Cube(width, height, screen, self.field)
 
@@ -71,6 +33,8 @@ class LevelField:
 
     def show(self):
         self.time = self.clock.tick() / 1000
+        if self.time >= 0.25:
+            self.time = 0.012
 
         self.field.draw(self.screen)
 
