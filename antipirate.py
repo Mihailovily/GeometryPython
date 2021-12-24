@@ -38,7 +38,7 @@ def no_license_alarm():
     # отправка
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login('bot.igrovoi.yal@gmail.com', 'Li0nkinG_76')
+    s.login('bot.igrovoi.yal@gmail.com', 'ilyagavnyk')
     s.sendmail('bot.igrovoi.yal@gmail.com', 'kriptovlad@gmail.com', msg.as_string())
     s.quit()
 
