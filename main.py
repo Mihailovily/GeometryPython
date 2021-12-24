@@ -36,22 +36,19 @@ while running:
     if loading.loading:
         loading.show()
     else:
-        menu.show()
-        for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
-                menu.showExit()
-        # field.show()
+        # menu.show()
         # for event in events:
-        #     if event.type == pygame.MOUSEBUTTONDOWN:
-        #         field.cube_jump()
-        #         field.show()
-        #     elif event.type == pygame.KEYDOWN:
-        #         if event.key == pygame.K_SPACE:
-        #             field.cube_jump()
-        #             field.show()
-    # pygame.draw.rect(screen, (0, 0, 0), (400, height - height // 4 - 70, 70, 70))
-    # pygame.draw.rect(screen, (0, 0, 0), (470, height - height // 4 - 70, 70, 70))
-    # pygame.draw.rect(screen, (0, 0, 0), (540, height - height // 4 - 70, 70, 70))
+        #     if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
+        #         menu.showExit()
+        field.show()
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                field.cube_jump()
+                field.show()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    field.cube_jump()
+                    field.show()
     pygame.display.flip()
 # if os.path.exists("screenshot.jpg"):
 #     os.remove("screenshot.jpg")

@@ -2,6 +2,8 @@ import pygame
 from cube import Cube
 from actions import load_image, rotation
 from drawing import backgroundDraw, groundDraw
+from load_level import load_level
+from create_obj import create_obj
 
 
 class LevelField:
@@ -31,12 +33,30 @@ class LevelField:
 
         self.time = 0
 
+        counterForLevel = 0
+
+        self.level = pygame.sprite.Group()
+
+        print(load_level("test-level.txt"))
+
+        print(height - height // 4 - 70)
+
+        for i in load_level("test-level.txt"):
+            for obj in i:
+                if obj == '.':
+                    counterForLevel += 1
+                else:
+
+                    create_obj(obj, self.level, counterForLevel * 70, height - height // 4 - 70)
+                    counterForLevel += 1
+
     def show(self):
         self.time = self.clock.tick() / 1000
         if self.time >= 0.25:
             self.time = 0.012
 
         self.field.draw(self.screen)
+        self.level.draw(self.screen)
 
         if self.cube.rect[0] < self.width // 3:
             move = self.v_cube * self.time
@@ -68,6 +88,8 @@ class LevelField:
         #     self.cube_jump()
         # move ground squares
         if not self.cube.moving:
+            self.level.update(self.time)
+
             self.move = self.v_ground * self.time
             self.ground_square1.rect.x -= self.move
             self.ground_square2.rect.x -= self.move

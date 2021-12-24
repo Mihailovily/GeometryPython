@@ -39,7 +39,7 @@ class Loading:
         self.logo.rect.y = 450
 
     def rand(self):
-        self.rand_ = random.random() / 20
+        self.rand_ = random.random() / 10
 
     def show(self):
         bar = actions.load_image("bar.png")
