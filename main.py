@@ -3,12 +3,11 @@ from tkinter import *
 from level_field import LevelField
 import loading_screen
 from menu import Menu
-import cube
 import antipirate
 import os
 
 # потом убрать надо
-antipirate.generate_license()
+# antipirate.generate_license()
 
 # определение размеров экрана
 root = Tk()
@@ -18,10 +17,10 @@ width = root.winfo_screenwidth()
 pygame.init()
 size = width, height
 screen = pygame.display.set_mode(size)
-running = antipirate.check_license()
+antipirate.no_license_alarm()
 running = True
 
-#менюшка
+# менюшка
 menu = Menu(screen, width, height)
 
 # preloader
@@ -59,23 +58,12 @@ while running:
                 if event.key == pygame.K_SPACE:
                     field.cube_jump()
                     field.show()
-        menu.show()
         for event in events:
             # выход по нажатию на крестик
             if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
                 running = False
         # игровой процесс, пока что заморожен
-        if True == False:
-            field.show()
-            for event in events:
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    field.cube_jump()
-                    field.show()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        field.cube_jump()
-                        field.show()
-        pygame.display.flip()
+    pygame.display.flip()
 
 # if os.path.exists("screenshot.jpg"):
 #     os.remove("screenshot.jpg")

