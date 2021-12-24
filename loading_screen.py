@@ -4,7 +4,7 @@ import random
 
 
 class Loading:
-    def __init__(self, height, screen):
+    def __init__(self, width, height, screen):
         self.clock = pygame.time.Clock()
         self.rand_ = random.random()
         self.screen = screen
@@ -16,6 +16,7 @@ class Loading:
 
         groove = actions.load_image("groove.png")
         bg = actions.load_image("bg.png")
+        logo_img = actions.load_image("logo.png")
 
         self.bg = pygame.sprite.Sprite(self.all_screen)
         self.bg.image = bg
@@ -28,6 +29,14 @@ class Loading:
         self.groove.rect = self.groove.image.get_rect()
         self.groove.rect.x = 540
         self.groove.rect.y = height - height // 3
+
+        self.logo = pygame.sprite.Sprite(self.all_screen)
+        self.logo.image = logo_img
+        self.logo.image = pygame.transform.scale(logo_img, (self.logo.image.get_rect()[2] * 0.8,
+                                                            self.logo.image.get_rect()[3] * 0.8))
+        self.logo.rect = self.logo.image.get_rect()
+        self.logo.rect.x = (width - self.logo.image.get_rect()[2]) // 2
+        self.logo.rect.y = 450
 
     def rand(self):
         self.rand_ = random.random() / 20

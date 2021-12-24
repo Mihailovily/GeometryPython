@@ -20,7 +20,7 @@ running = True
 
 menu = Menu(screen, width, height)
 
-loading = loading_screen.Loading(height, screen)
+loading = loading_screen.Loading(width, height, screen)
 
 field = LevelField(width, height, screen)
 
@@ -37,6 +37,9 @@ while running:
         loading.show()
     else:
         menu.show()
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
+                menu.showExit()
         # field.show()
         # for event in events:
         #     if event.type == pygame.MOUSEBUTTONDOWN:
