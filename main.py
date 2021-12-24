@@ -4,38 +4,49 @@ from level_field import LevelField
 import loading_screen
 from menu import Menu
 import cube
-# import antipirate
+import antipirate
 import os
 
-# antipirate.generate_license()
+# потом убрать надо
+antipirate.generate_license()
+
+# определение размеров экрана
 root = Tk()
 height = root.winfo_screenheight()
 width = root.winfo_screenwidth()
-
+# инициализация, антипиратство
 pygame.init()
 size = width, height
 screen = pygame.display.set_mode(size)
-# running = antipirate.check_license()
+running = antipirate.check_license()
 running = True
 
+#менюшка
 menu = Menu(screen, width, height)
 
+# preloader
 loading = loading_screen.Loading(width, height, screen)
 
+# поле
 field = LevelField(width, height, screen)
 
+# время
 clock = pygame.time.Clock()
+
 while running:
     events = pygame.event.get()
     screen.fill((0, 0, 0))
     for event in events:
+        # выход по закрытию программы
         if event.type == pygame.QUIT:
             running = False
     if bool(events):
+        # у Влада спросить надо
         events = [events[0]]
     if loading.loading:
         loading.show()
     else:
+<<<<<<< HEAD
         # menu.show()
         # for event in events:
         #     if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
@@ -52,4 +63,27 @@ while running:
     pygame.display.flip()
 # if os.path.exists("screenshot.jpg"):
 #     os.remove("screenshot.jpg")
+=======
+        menu.show()
+        for event in events:
+            # выход по нажатию на крестик
+            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
+                running = False
+        # игровой процесс, пока что заморожен
+        if True == False:
+            field.show()
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    field.cube_jump()
+                    field.show()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        field.cube_jump()
+                        field.show()
+        pygame.display.flip()
+# подчистка следов
+if os.path.exists("screenshot.jpg"):
+    os.remove("screenshot.jpg")
+# выход
+>>>>>>> f19e9b8938bbb57cf05d6a957e9dab33251e87b5
 pygame.quit()
