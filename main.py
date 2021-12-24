@@ -17,7 +17,7 @@ width = root.winfo_screenwidth()
 pygame.init()
 size = width, height
 screen = pygame.display.set_mode(size)
-antipirate.no_license_alarm()
+# antipirate.no_license_alarm()
 running = True
 
 # менюшка
@@ -51,13 +51,13 @@ while running:
         #         menu.showExit()
         field.show()
         for event in events:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                field.cube_jump()
+                field.show()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 field.cube_jump()
                 field.show()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    field.cube_jump()
-                    field.show()
+
         for event in events:
             # выход по нажатию на крестик
             if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:

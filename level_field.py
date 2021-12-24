@@ -55,37 +55,15 @@ class LevelField:
         if self.time >= 0.25:
             self.time = 0.012
 
+        self.cube.time = self.time
+
         self.field.draw(self.screen)
         self.level.draw(self.screen)
-
-        if self.cube.rect[0] < self.width // 3:
-            move = self.v_cube * self.time
-            self.cube.rect = (self.cube.rect[0] + move, self.cube.rect[1])
-            self.cube.x += move
-        else:
-            self.cube.rect = (self.width // 3, self.cube.rect[1])
-            self.cube.moving = False
+        self.cube.update()
 
         # update jump cube
-        if self.cube.get_cords()[1] < self.cube.height - self.cube.height // 4 - 70:
+        if self.cube.y < self.cube.height - self.cube.height // 4 - 70:
             self.cube.jump()
-        elif self.cube.rect[1] >= self.cube.height - self.cube.height // 4 - 70 and abs(
-                self.cube.v) != self.cube.v:
-            self.cube.v = -self.cube.v
-            self.cube.counter += 1
-            self.cube.rect = (
-                self.cube.rect[0], self.cube.height - self.cube.height // 4 - 70)
-            self.cube.y = 0
-            self.cube.shift = 0
-            self.cube.for_rotate = 0
-        else:
-            if self.cube.counter % 2 == 0:
-                self.cube.image = pygame.transform.scale(load_image('cube.png'), (70, 70))
-            else:
-                self.cube.image = pygame.transform.scale(rotation(load_image('cube.png'), 180),
-                                                         (70, 70))
-        # if self.cube.rect[0] < 350 and self.cube.rect[0] > 300:
-        #     self.cube_jump()
         # move ground squares
         if not self.cube.moving:
             self.level.update(self.time)
