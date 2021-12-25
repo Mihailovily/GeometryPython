@@ -1,6 +1,7 @@
 from drawing import backgroundDraw, groundDraw
 from actions import load_image
 import pygame
+from playsound import playsound
 
 
 class Menu:
@@ -10,6 +11,7 @@ class Menu:
         self.move_bg = 0
         self.v_ground = 770
         self.v_bg = 55
+        self.playing_music = False
 
         self.clock = pygame.time.Clock()
         self.screen = screen
@@ -63,6 +65,10 @@ class Menu:
         self.width = width
         self.height = height
 
+    def play_music(self):
+        playsound("music/menu.mp3", block=False)
+        self.playing_music = True
+
     def showExit(self):
         quit_img = load_image("quit.png")
 
@@ -75,6 +81,9 @@ class Menu:
         quit.rect.y = (self.height - 529) // 2
 
     def show(self):
+        if not self.playing_music:
+            self.play_music()
+
         self.time = self.clock.tick() / 1000
 
         self.menu.draw(self.screen)
