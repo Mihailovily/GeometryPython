@@ -5,15 +5,14 @@ import actions
 class Cube(pygame.sprite.Sprite):
     def __init__(self, width, height, screen, *group):
         super().__init__(*group)
-        self.v2 = 430
+        self.v2 = 410
         self.v = 770
         self.move_vertical = 0
         self.shift = 0
-        self.image = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
         self.for_rotate = 1
         self.floor = 0
         self.x = -70
-        self.y = height - height // 4 - 70
+        self.y = height - height // 4 - 70 - self.floor
         self.rect = (self.x, self.y)
         self.time = 1
         self.width = width
@@ -22,14 +21,21 @@ class Cube(pygame.sprite.Sprite):
         self.counter = 0
         self.clock = pygame.time.Clock()
         self.cube = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
+        self.image = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
         self.moving = True
+
+        self.depth = False
+
+        self.mask = pygame.mask.from_surface(pygame.Surface([70, 70]))
 
     def jump(self):
 
         self.move_vertical += self.v * self.time
+        if self.move_vertical < 0:
+            self.move_vertical = 0
         self.shift += self.v2 * self.time
 
-        if self.y < self.height - self.height // 4 - 70 - 155 and abs(self.v) == self.v:
+        if self.move_vertical >= 175 and abs(self.v) == self.v:
             self.v = -self.v
 
         if int(self.shift) >= self.for_rotate:
@@ -52,16 +58,14 @@ class Cube(pygame.sprite.Sprite):
         self.rect = (self.x, self.y)
 
     def update(self):
-        if self.y >= self.height - self.height // 4 - 70 and abs(
+        if self.move_vertical == 0 and abs(
                 self.v) != self.v:
             self.v = -self.v
             self.counter += 1
-            self.y = self.height - self.height // 4 - 70
+            self.y = self.height - self.height // 4 - 70 - self.floor
             self.move_vertical = 0
             self.shift = 0
             self.for_rotate = 0
-
-        if self.y >= self.height - self.height // 4 - 70 - self.move_vertical - self.floor:
             if self.counter % 2 == 0:
                 self.image = self.cube
             else:

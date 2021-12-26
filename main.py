@@ -5,6 +5,7 @@ import loading_screen
 from menu import Menu
 import antipirate
 import os
+import time
 
 # потом убрать надо
 # antipirate.generate_license()
@@ -49,14 +50,30 @@ while running:
         # for event in events:
         #     if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
         #         menu.showExit()
+
         field.show()
         for event in events:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                field.cube_jump()
+                field.cube.jump()
                 field.show()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                field.cube_jump()
+                field.cube.jump()
                 field.show()
+
+        if field.cube.depth:
+            field.create_level(700)
+
+            field.cube.depth = False
+            field.cube.counter = 0
+            field.cube.y = height - height // 4 - 70
+            field.cube.image = field.cube.cube
+            field.cube.shift = 0
+            field.cube.for_rotate = 0
+            field.cube.move_vertical = 0
+            field.cube.v = 770
+            field.cube.floor = 0
+
+            time.sleep(1)
 
         for event in events:
             # выход по нажатию на крестик

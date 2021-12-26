@@ -1,9 +1,7 @@
-import pygame
 from cube import Cube
-from actions import load_image, rotation
 from drawing import backgroundDraw, groundDraw
 from load_level import load_level
-from create_obj import create_obj
+from create_obj import *
 
 
 class LevelField:
@@ -33,13 +31,14 @@ class LevelField:
 
         self.time = 0
 
-        counterForLevel = 0
-
         self.level = pygame.sprite.Group()
 
-        print(load_level("test-level.txt"))
+        self.create_level(0)
 
-        print(height - height // 4 - 70)
+    def create_level(self, length):
+        self.level = pygame.sprite.Group()
+
+        counterForLevel = 0
 
         for i in load_level("test-level.txt"):
             for obj in i:
@@ -47,10 +46,33 @@ class LevelField:
                     counterForLevel += 1
                 else:
 
-                    create_obj(obj, self.level, counterForLevel * 70, height - height // 4 - 70)
+                    create_obj(obj, self.level, counterForLevel * 70 + 700 + length,
+                               self.height - self.height // 4 - 70)
                     counterForLevel += 1
 
     def show(self):
+        for i in self.level:
+            if pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Thorn):
+                self.cube.depth = True
+                break
+            if pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Block):
+                print(i.rect.y, self.cube.y)
+                if i.rect.y <= self.cube.y:
+                    self.cube.depth = True
+                    break
+                else:
+                    self.cube.floor += 70
+                    self.cube.move_vertical = 0
+
+        if self.cube.depth:
+            self.v_bg = 0
+            self.v_cube = 0
+            self.v_ground = 0
+        else:
+            self.v_bg = 55
+            self.v_cube = 770
+            self.v_ground = 770
+
         self.time = self.clock.tick() / 1000
         if self.time >= 0.25:
             self.time = 0.012
@@ -62,11 +84,11 @@ class LevelField:
         self.cube.update()
 
         # update jump cube
-        if self.cube.y < self.cube.height - self.cube.height // 4 - 70:
+        if self.cube.y < self.cube.height - self.cube.height // 4 - 70 - self.cube.floor:
             self.cube.jump()
         # move ground squares
         if not self.cube.moving:
-            self.level.update(self.time)
+            self.level.update(self.time, self.v_ground)
 
             self.move = self.v_ground * self.time
             self.ground_square1.rect.x -= self.move
@@ -117,6 +139,3 @@ class LevelField:
                         self.bg2.rect.x = self.bg1.rect.x + 2048
 
             self.rects_bg.clear()
-
-    def cube_jump(self):
-        self.cube.jump()
