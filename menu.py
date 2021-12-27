@@ -1,7 +1,6 @@
 from drawing import backgroundDraw, groundDraw
 from actions import load_image
 import pygame
-from playsound import playsound
 
 
 class Menu:
@@ -66,7 +65,8 @@ class Menu:
         self.height = height
 
     def play_music(self):
-        playsound("music/menu.mp3", block=False)
+        pygame.mixer.music.load("music/menu.mp3")
+        pygame.mixer.music.play(-1)
         self.playing_music = True
 
     def showExit(self):
