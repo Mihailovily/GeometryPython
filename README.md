@@ -1,4 +1,9 @@
-# GeometryPython
+<h1 style="text-align: center;">GeometryPython</h1>
+
+![](https://img.shields.io/badge/TIV-team-red)
+![](https://img.shields.io/badge/pygame-2.1.0-yellow)
+![](https://img.shields.io/badge/python-3.7-green)
+
 
 ### Проблема:
 Очень малое количество интересных игр, написанных на Pygame
