@@ -51,19 +51,24 @@ class LevelField:
                     counterForLevel += 1
 
     def show(self):
+        test = True
         for i in self.level:
             if pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Thorn):
                 self.cube.depth = True
                 break
-            if pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Block):
-                print(i.rect.y, self.cube.y)
-                if i.rect.y <= self.cube.y:
+            elif pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Block):
+                if i.rect.y <= self.cube.y and not i.rect.y > self.cube.y:
                     self.cube.depth = True
                     break
                 else:
-                    self.cube.floor += 70
+                    self.cube.floor = self.height - self.height // 4 - i.rect.y
                     self.cube.move_vertical = 0
 
+            elif self.cube.x <= i.rect.x + 70 and self.cube.x >= i.rect.x:
+                test = False
+
+        if test:
+            self.cube.floor = 0
         if self.cube.depth:
             self.v_bg = 0
             self.v_cube = 0
