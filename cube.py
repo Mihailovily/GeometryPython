@@ -5,7 +5,7 @@ import actions
 class Cube(pygame.sprite.Sprite):
     def __init__(self, width, height, screen, *group):
         super().__init__(*group)
-        self.v2 = 410
+        self.v2 = 380
         self.v = 770
         self.move_vertical = 0
         self.shift = 0

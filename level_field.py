@@ -6,6 +6,12 @@ from create_obj import *
 
 class LevelField:
     def __init__(self, width, height, screen):
+        self.places = []
+        self.blocksX = []
+        self.blocksY = []
+
+        self.jump = True
+
         self.clock = pygame.time.Clock()
         self.field = pygame.sprite.Group()
         self.width = width
@@ -45,30 +51,49 @@ class LevelField:
                 if obj == '.':
                     counterForLevel += 1
                 else:
-
                     create_obj(obj, self.level, counterForLevel * 70 + 700 + length,
-                               self.height - self.height // 4 - 70)
+                               self.height - self.height // 4 - 140)
                     counterForLevel += 1
 
     def show(self):
-        test = True
+        down = False
+        self.jump = True
+        ans = False
+        self.blocksX = []
         for i in self.level:
             if pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Thorn):
                 self.cube.depth = True
                 break
-            elif pygame.sprite.collide_mask(self.cube, i) and isinstance(i, Block):
-                if i.rect.y <= self.cube.y and not i.rect.y > self.cube.y:
+            if isinstance(i, Block) and i.rect.x > 0 and i.rect.x < 1920:
+                self.blocksX.append(i.rect.x)
+                self.blocksY.append(i.rect.y)
+
+        for i in range(630, 630 + 72):
+            if i in self.blocksX:
+                index = self.blocksX.index(i)
+                print(self.cube.y, self.blocksY[index])
+                if abs(int(self.cube.y - self.blocksY[index])) < 70:
                     self.cube.depth = True
-                    break
-                else:
-                    self.cube.floor = self.height - self.height // 4 - i.rect.y
-                    self.cube.move_vertical = 0
 
-            elif self.cube.x <= i.rect.x + 70 and self.cube.x >= i.rect.x:
-                test = False
+                elif abs(int(self.cube.y - self.blocksY[index])) > 70:
+                    self.cube.floor = self.height - self.height // 4 - self.blocksY[index]
+                    self.places.append(self.cube.floor // 70)
 
-        if test:
+        for i in range(630 - 70, 630 + 71):
+            if i in self.blocksX:
+                ans = True
+                break
+
+        if not ans and self.places and self.places[-1] != 0:
+            down = True
+
+        if down:
             self.cube.floor = 0
+            self.places.append(0)
+            self.jump = False
+            self.cube.y = self.cube.height - self.cube.height // 4 - 70 - self.cube.floor
+            # self.cube.depth = True
+
         if self.cube.depth:
             self.v_bg = 0
             self.v_cube = 0
@@ -89,7 +114,7 @@ class LevelField:
         self.cube.update()
 
         # update jump cube
-        if self.cube.y < self.cube.height - self.cube.height // 4 - 70 - self.cube.floor:
+        if self.cube.y < self.cube.height - self.cube.height // 4 - 70 - self.cube.floor and self.jump:
             self.cube.jump()
         # move ground squares
         if not self.cube.moving:
