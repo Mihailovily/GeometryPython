@@ -24,12 +24,14 @@ class Cube(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
         self.moving = True
 
+        self.floorOld = self.floor
+        self.jumping = False
+
         self.depth = False
 
         self.mask = pygame.mask.from_surface(pygame.Surface([70, 70]))
 
     def jump(self):
-
         self.move_vertical += self.v * self.time
         if self.move_vertical < 0:
             self.move_vertical = 0
@@ -53,7 +55,7 @@ class Cube(pygame.sprite.Sprite):
             self.x += self.time * 770
         else:
             self.x = self.width // 3 - (self.image.get_rect()[2] - 70) // 2
-        self.y = self.height - self.height // 4 - 70 - self.move_vertical - self.floor
+        self.y = self.height - self.height // 4 - 70 - self.move_vertical - self.floorOld
         self.y -= (self.image.get_rect()[2] - 70) // 2
         self.rect = (self.x, self.y)
 

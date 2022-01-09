@@ -2,6 +2,7 @@ from cube import Cube
 from drawing import backgroundDraw, groundDraw
 from load_level import load_level
 from create_obj import *
+from actions import rotation
 
 
 class LevelField:
@@ -71,9 +72,8 @@ class LevelField:
         for i in range(630, 630 + 72):
             if i in self.blocksX:
                 index = self.blocksX.index(i)
-                print(self.cube.y, self.blocksY[index])
                 if abs(int(self.cube.y - self.blocksY[index])) < 70:
-                    self.cube.depth = True
+                    self.cube.depth = False
 
                 elif abs(int(self.cube.y - self.blocksY[index])) > 70:
                     self.cube.floor = self.height - self.height // 4 - self.blocksY[index]
@@ -114,8 +114,21 @@ class LevelField:
         self.cube.update()
 
         # update jump cube
+        if not self.cube.jumping:
+            self.cube.floorOld = self.cube.floor
+
         if self.cube.y < self.cube.height - self.cube.height // 4 - 70 - self.cube.floor and self.jump:
             self.cube.jump()
+            self.cube.jumping = True
+        else:
+            self.cube.jumping = False
+            self.cube.y = self.cube.height - self.cube.height // 4 - 70 - self.cube.floor
+
+            if self.cube.counter % 2 == 0:
+                self.cube.image = self.cube.cube
+            else:
+                self.cube.image = rotation(self.cube.cube, 180)
+
         # move ground squares
         if not self.cube.moving:
             self.level.update(self.time, self.v_ground)
