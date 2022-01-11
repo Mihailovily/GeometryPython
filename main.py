@@ -29,10 +29,10 @@ loading = loading_screen.Loading(width, height, screen)
 
 # поле
 field = LevelField(width, height, screen)
-
+game = False
+levels = False
 # время
 clock = pygame.time.Clock()
-
 while running:
     events = pygame.event.get()
     screen.fill((0, 0, 0))
@@ -46,39 +46,42 @@ while running:
     if loading.loading:
         loading.show()
     else:
-        # menu.show()
-        # for event in events:
-        #     if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
-        #         menu.showExit()
+        if game is False:
+            menu.show()
+        if game is True:
+            field.show()
+            for event in events:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    field.cube.jump()
+                    field.show()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    field.cube.jump()
+                    field.show()
 
-        field.show()
+            if field.cube.depth:
+                field.create_level(700)
+
+                field.cube.depth = False
+                field.cube.counter = 0
+                field.cube.y = height - height // 4 - 70
+                field.cube.image = field.cube.cube
+                field.cube.shift = 0
+                field.cube.for_rotate = 0
+                field.cube.move_vertical = 0
+                field.cube.v = 770
+                field.cube.floor = 0
+
+                time.sleep(1)
+        #for event in events:
+        #    if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[1] - 60) ** 2 < 50 ** 2:
+        #        menu.showExit()
         for event in events:
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                field.cube.jump()
-                field.show()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                field.cube.jump()
-                field.show()
-
-        if field.cube.depth:
-            field.create_level(700)
-
-            field.cube.depth = False
-            field.cube.counter = 0
-            field.cube.y = height - height // 4 - 70
-            field.cube.image = field.cube.cube
-            field.cube.shift = 0
-            field.cube.for_rotate = 0
-            field.cube.move_vertical = 0
-            field.cube.v = 770
-            field.cube.floor = 0
-
-            time.sleep(1)
-
-        for event in events:
-            # выход по нажатию на крестик
-            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[0] - 60) ** 2 < 50 ** 2:
+            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[1] - 60) ** 2 < 50 ** 2:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - ((width - 350) // 2 + 175)) ** 2 + (event.pos[1] - ((height - 350) // 2 + 175)) ** 2 < 175 ** 2:
+                game = True
+
+
         # игровой процесс, пока что заморожен
     pygame.display.flip()
 
