@@ -151,50 +151,78 @@ class Levels:
         self.screen = screen
         self.menu = pygame.sprite.Group()
 
-        btnPlay_img = load_image("btnPlay.png")
         bg = load_image("bg.png")
         ground = load_image("ground.png")
-        btnCreate_img = load_image("btnCreate.png")
-        btnIcon_img = load_image("btnIcon.png")
-        btnExit_img = load_image("btnExit.png")
-        logo_img = load_image("logo.png")
+        logo_img = load_image("LEVELS.png")
 
         self.bg1, self.bg2 = backgroundDraw(height, bg, self.menu)
 
         self.ground_square1, self.ground_square2, self.ground_square3, self.ground_square4, self.ground_square5, \
         self.ground_square6, self.ground_square7 = groundDraw(height, ground, self.menu)
 
-        btnPlay = pygame.sprite.Sprite(self.menu)
-        btnPlay.image = pygame.transform.scale(btnPlay_img, (350, 350))
-        btnPlay.rect = btnPlay.image.get_rect()
-        btnPlay.rect.x = (width - 350) // 2
-        btnPlay.rect.y = (height - 350) // 2
-
         logo = pygame.sprite.Sprite(self.menu)
         logo.image = logo_img
-        logo.image = pygame.transform.scale(logo_img, (logo.image.get_rect()[2] * 0.9,
-                                                       logo.image.get_rect()[3] * 0.9))
+        logo.image = pygame.transform.scale(logo_img, (logo.image.get_rect()[2] * 1,
+                                                       logo.image.get_rect()[3] * 1))
         logo.rect = logo.image.get_rect()
         logo.rect.x = (width - logo.image.get_rect()[2]) // 2
-        logo.rect.y = 100
+        logo.rect.y = 150
 
-        btnCreate = pygame.sprite.Sprite(self.menu)
-        btnCreate.image = pygame.transform.scale(btnCreate_img, (220, 220))
-        btnCreate.rect = btnCreate.image.get_rect()
-        btnCreate.rect.x = btnPlay.rect.x + 350 + 100
-        btnCreate.rect.y = (height - 220) // 2
+        sprite_1_img = load_image("bar4.png")
+        sprite1 = pygame.sprite.Sprite(self.menu)
+        sprite1.image = sprite_1_img
+        sprite1.image = pygame.transform.scale(sprite_1_img, (sprite1.image.get_rect()[2] * 0.7,
+                                                       sprite1.image.get_rect()[3] * 0.7))
+        sprite1.rect = sprite1.image.get_rect()
+        sprite1.rect.x = (width - sprite1.image.get_rect()[2]) // 2
+        sprite1.rect.y = 0
 
-        btnIcon = pygame.sprite.Sprite(self.menu)
-        btnIcon.image = pygame.transform.scale(btnIcon_img, (220, 220))
-        btnIcon.rect = btnIcon.image.get_rect()
-        btnIcon.rect.x = btnPlay.rect.x - 100 - 220
-        btnIcon.rect.y = (height - 220) // 2
+        sprite_2_img = load_image("bar3.png")
+        sprite2 = pygame.sprite.Sprite(self.menu)
+        sprite2.image = sprite_2_img
+        sprite2.image = pygame.transform.scale(sprite_2_img, (sprite2.image.get_rect()[2] * 0.7,
+                                                          sprite2.image.get_rect()[3] * 0.7))
+        sprite2.rect = sprite1.image.get_rect()
+        sprite2.rect.x = 0
+        sprite2.rect.y = height - 190
 
+        sprite_3_img = load_image("bar2.png")
+        sprite3 = pygame.sprite.Sprite(self.menu)
+        sprite3.image = sprite_3_img
+        sprite3.image = pygame.transform.scale(sprite_3_img, (sprite3.image.get_rect()[2] * 0.7,
+                                                          sprite3.image.get_rect()[3] * 0.7))
+        sprite3.rect = sprite1.image.get_rect()
+        sprite3.rect.x = width - 190
+        sprite3.rect.y = height - 190
+
+        btnExit_img = load_image("bntExitmenu.png")
         btnExit = pygame.sprite.Sprite(self.menu)
-        btnExit.image = pygame.transform.scale(btnExit_img, (100, 100))
+        btnExit.image = pygame.transform.scale(btnExit_img, (90, 100))
         btnExit.rect = btnExit.image.get_rect()
         btnExit.rect.x = 10
         btnExit.rect.y = 10
+
+        level_1_img = load_image("1.png")
+        level_1 = pygame.sprite.Sprite(self.menu)
+        level_1.image = level_1_img
+        level_1.image = pygame.transform.scale(level_1_img, (level_1.image.get_rect()[2] * 1,
+                                                       level_1.image.get_rect()[3] * 1))
+        level_1.rect = level_1.image.get_rect()
+        print(level_1.image.get_rect()[2])
+        level_1.rect.x = (width - 350) // 2
+        level_1.rect.y = 350
+
+        level_2_img = load_image("2.png")
+        level_2 = pygame.sprite.Sprite(self.menu)
+        level_2.image = level_2_img
+        level_2.image = pygame.transform.scale(level_2_img, (level_2.image.get_rect()[2] * 1,
+                                                            level_2.image.get_rect()[3] * 1))
+        level_2.rect = level_2.image.get_rect()
+        print(level_2.image.get_rect()[2])
+        level_2.rect.x = (width - 350) // 2
+        level_2.rect.y = 600
+
+
 
         self.width = width
         self.height = height

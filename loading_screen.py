@@ -5,6 +5,7 @@ import random
 
 class Loading:
     def __init__(self, width, height, screen):
+        self.width = width
         self.clock = pygame.time.Clock()
         self.rand_ = random.random()
         self.screen = screen
@@ -27,7 +28,7 @@ class Loading:
         self.groove = pygame.sprite.Sprite(self.all_screen)
         self.groove.image = groove
         self.groove.rect = self.groove.image.get_rect()
-        self.groove.rect.x = 540
+        self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
         self.groove.rect.y = height - height // 3
 
         self.logo = pygame.sprite.Sprite(self.all_screen)
@@ -42,6 +43,7 @@ class Loading:
         self.rand_ = random.random() / 10
 
     def show(self):
+        width = self.width
         bar = actions.load_image("bar.png")
         groove = actions.load_image("groove.png")
         self.time += self.clock.tick() / 1000
@@ -60,7 +62,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
             elif self.counter == 2:
                 self.bar = pygame.sprite.Sprite(self.all_screen)
@@ -74,7 +76,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
             elif self.counter == 3:
                 self.bar = pygame.sprite.Sprite(self.all_screen)
@@ -88,7 +90,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
             elif self.counter == 4:
                 self.bar = pygame.sprite.Sprite(self.all_screen)
@@ -102,7 +104,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
             elif self.counter == 5:
                 self.bar = pygame.sprite.Sprite(self.all_screen)
@@ -116,7 +118,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
             elif self.counter == 6:
                 self.bar = pygame.sprite.Sprite(self.all_screen)
@@ -130,7 +132,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
             elif self.counter == 7:
                 self.bar = pygame.sprite.Sprite(self.all_screen)
@@ -143,7 +145,7 @@ class Loading:
                 self.groove = pygame.sprite.Sprite(self.all_screen)
                 self.groove.image = groove
                 self.groove.rect = self.groove.image.get_rect()
-                self.groove.rect.x = 540
+                self.groove.rect.x = (width - self.groove.image.get_rect()[2]) // 2
                 self.groove.rect.y = self.height - self.height // 3
                 self.loading = False
 
