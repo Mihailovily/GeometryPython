@@ -64,8 +64,13 @@ class Menu:
         self.width = width
         self.height = height
 
-    def play_music(self):
-        pygame.mixer.music.load("music/menu.mp3")
+    def play_music(self, a):
+        if a == 'menu':
+            pygame.mixer.music.load("music/menu.mp3")
+        elif a == '1':
+            pygame.mixer.music.load("music/1.mp3")
+        elif a == '2':
+            pygame.mixer.music.load("music/2.mp3")
         pygame.mixer.music.play(-1)
         self.playing_music = True
 
@@ -82,7 +87,7 @@ class Menu:
 
     def show(self):
         if not self.playing_music:
-            self.play_music()
+            self.play_music('menu')
 
         self.time = self.clock.tick() / 1000
 
@@ -138,6 +143,7 @@ class Menu:
 
         self.rects_bg.clear()
 
+
 class Levels:
     def __init__(self, screen, width, height):
         self.rects_ground_squares = []
@@ -172,7 +178,7 @@ class Levels:
         sprite1 = pygame.sprite.Sprite(self.menu)
         sprite1.image = sprite_1_img
         sprite1.image = pygame.transform.scale(sprite_1_img, (sprite1.image.get_rect()[2] * 0.7,
-                                                       sprite1.image.get_rect()[3] * 0.7))
+                                                              sprite1.image.get_rect()[3] * 0.7))
         sprite1.rect = sprite1.image.get_rect()
         sprite1.rect.x = (width - sprite1.image.get_rect()[2]) // 2
         sprite1.rect.y = 0
@@ -181,7 +187,7 @@ class Levels:
         sprite2 = pygame.sprite.Sprite(self.menu)
         sprite2.image = sprite_2_img
         sprite2.image = pygame.transform.scale(sprite_2_img, (sprite2.image.get_rect()[2] * 0.7,
-                                                          sprite2.image.get_rect()[3] * 0.7))
+                                                              sprite2.image.get_rect()[3] * 0.7))
         sprite2.rect = sprite1.image.get_rect()
         sprite2.rect.x = 0
         sprite2.rect.y = height - 190
@@ -190,7 +196,7 @@ class Levels:
         sprite3 = pygame.sprite.Sprite(self.menu)
         sprite3.image = sprite_3_img
         sprite3.image = pygame.transform.scale(sprite_3_img, (sprite3.image.get_rect()[2] * 0.7,
-                                                          sprite3.image.get_rect()[3] * 0.7))
+                                                              sprite3.image.get_rect()[3] * 0.7))
         sprite3.rect = sprite1.image.get_rect()
         sprite3.rect.x = width - 190
         sprite3.rect.y = height - 190
@@ -206,7 +212,7 @@ class Levels:
         level_1 = pygame.sprite.Sprite(self.menu)
         level_1.image = level_1_img
         level_1.image = pygame.transform.scale(level_1_img, (level_1.image.get_rect()[2] * 1,
-                                                       level_1.image.get_rect()[3] * 1))
+                                                             level_1.image.get_rect()[3] * 1))
         level_1.rect = level_1.image.get_rect()
         print(level_1.image.get_rect()[2])
         level_1.rect.x = (width - 350) // 2
@@ -216,26 +222,28 @@ class Levels:
         level_2 = pygame.sprite.Sprite(self.menu)
         level_2.image = level_2_img
         level_2.image = pygame.transform.scale(level_2_img, (level_2.image.get_rect()[2] * 1,
-                                                            level_2.image.get_rect()[3] * 1))
+                                                             level_2.image.get_rect()[3] * 1))
         level_2.rect = level_2.image.get_rect()
         print(level_2.image.get_rect()[2])
         level_2.rect.x = (width - 350) // 2
         level_2.rect.y = 600
 
-
-
         self.width = width
         self.height = height
 
-    def play_music(self):
-        pygame.mixer.music.load("music/menu.mp3")
+    def play_music(self, a):
+        if a == 'menu':
+            pygame.mixer.music.load("music/menu.mp3")
+        elif a == '1':
+            pygame.mixer.music.load("music/1.mp3")
+        elif a == '2':
+            pygame.mixer.music.load("music/2.mp3")
         pygame.mixer.music.play(-1)
         self.playing_music = True
 
-
     def show(self):
         if not self.playing_music:
-            self.play_music()
+            self.play_music('1')
 
         self.time = self.clock.tick() / 1000
 
