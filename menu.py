@@ -172,7 +172,7 @@ class Levels:
                                                        logo.image.get_rect()[3] * 1))
         logo.rect = logo.image.get_rect()
         logo.rect.x = (width - logo.image.get_rect()[2]) // 2
-        logo.rect.y = 150
+        logo.rect.y = 90
 
         sprite_1_img = load_image("bar4.png")
         sprite1 = pygame.sprite.Sprite(self.menu)
@@ -208,25 +208,25 @@ class Levels:
         btnExit.rect.x = 10
         btnExit.rect.y = 10
 
-        level_1_img = load_image("1.png")
+        level_1_img = load_image("RUSSIAN_ROADS_LEVEL.png")
         level_1 = pygame.sprite.Sprite(self.menu)
         level_1.image = level_1_img
-        level_1.image = pygame.transform.scale(level_1_img, (level_1.image.get_rect()[2] * 1,
-                                                             level_1.image.get_rect()[3] * 1))
+        level_1.image = pygame.transform.scale(level_1_img, (level_1.image.get_rect()[2] * 0.5,
+                                                             level_1.image.get_rect()[3] * 0.5))
         level_1.rect = level_1.image.get_rect()
         print(level_1.image.get_rect()[2])
-        level_1.rect.x = (width - 350) // 2
-        level_1.rect.y = 350
+        level_1.rect.x = (width - 350) // 2 - 370
+        level_1.rect.y = 460
 
-        level_2_img = load_image("2.png")
+        level_2_img = load_image("INFERNAL_MASTURBATION_LEVEL.png")
         level_2 = pygame.sprite.Sprite(self.menu)
         level_2.image = level_2_img
-        level_2.image = pygame.transform.scale(level_2_img, (level_2.image.get_rect()[2] * 1,
-                                                             level_2.image.get_rect()[3] * 1))
+        level_2.image = pygame.transform.scale(level_2_img, (level_2.image.get_rect()[2] * 0.5,
+                                                             level_2.image.get_rect()[3] * 0.5))
         level_2.rect = level_2.image.get_rect()
         print(level_2.image.get_rect()[2])
-        level_2.rect.x = (width - 350) // 2
-        level_2.rect.y = 600
+        level_2.rect.x = (width - 350) // 2 - 395
+        level_2.rect.y = 120
 
         self.width = width
         self.height = height
