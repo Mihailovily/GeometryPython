@@ -2,6 +2,18 @@ from drawing import backgroundDraw, groundDraw
 from actions import load_image
 import pygame
 
+playing_music = False
+
+
+def play_music(a):
+    if a == 'menu':
+        pygame.mixer.music.load("music/menu.mp3")
+    elif a == '1':
+        pygame.mixer.music.load("music/1.mp3")
+    elif a == '2':
+        pygame.mixer.music.load("music/2.mp3")
+    pygame.mixer.music.play(-1)
+
 
 class Menu:
     def __init__(self, screen, width, height):
@@ -10,7 +22,6 @@ class Menu:
         self.move_bg = 0
         self.v_ground = 770
         self.v_bg = 55
-        self.playing_music = False
 
         self.clock = pygame.time.Clock()
         self.screen = screen
@@ -64,16 +75,6 @@ class Menu:
         self.width = width
         self.height = height
 
-    def play_music(self, a):
-        if a == 'menu':
-            pygame.mixer.music.load("music/menu.mp3")
-        elif a == '1':
-            pygame.mixer.music.load("music/1.mp3")
-        elif a == '2':
-            pygame.mixer.music.load("music/2.mp3")
-        pygame.mixer.music.play(-1)
-        self.playing_music = True
-
     def showExit(self):
         quit_img = load_image("quit.png")
 
@@ -86,8 +87,10 @@ class Menu:
         quit.rect.y = (self.height - 529) // 2
 
     def show(self):
-        if not self.playing_music:
-            self.play_music('menu')
+        global playing_music
+        if not playing_music:
+            play_music('menu')
+            playing_music = True
 
         self.time = self.clock.tick() / 1000
 
@@ -151,7 +154,6 @@ class Levels:
         self.move_bg = 0
         self.v_ground = 770
         self.v_bg = 55
-        self.playing_music = False
 
         self.clock = pygame.time.Clock()
         self.screen = screen
@@ -231,19 +233,11 @@ class Levels:
         self.width = width
         self.height = height
 
-    def play_music(self, a):
-        if a == 'menu':
-            pygame.mixer.music.load("music/menu.mp3")
-        elif a == '1':
-            pygame.mixer.music.load("music/1.mp3")
-        elif a == '2':
-            pygame.mixer.music.load("music/2.mp3")
-        pygame.mixer.music.play(-1)
-        self.playing_music = True
-
     def show(self):
-        if not self.playing_music:
-            self.play_music('1')
+        global playing_music
+        if not playing_music:
+            play_music('menu')
+            playing_music = True
 
         self.time = self.clock.tick() / 1000
 

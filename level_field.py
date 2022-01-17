@@ -73,11 +73,13 @@ class LevelField:
             if i in self.blocksX:
                 index = self.blocksX.index(i)
                 if abs(int(self.cube.y - self.blocksY[index])) < 70:
-                    self.cube.depth = False
+                    self.cube.depth = True
 
-                elif abs(int(self.cube.y - self.blocksY[index])) > 70:
+                elif abs(int(self.cube.y - self.blocksY[
+                    index])) > 70 and self.cube.floor != self.height - self.height // 4 - self.blocksY[index]:
                     self.cube.floor = self.height - self.height // 4 - self.blocksY[index]
                     self.places.append(self.cube.floor // 70)
+                    self.cube.move_vertical = 0
 
         for i in range(630 - 70, 630 + 71):
             if i in self.blocksX:
@@ -90,9 +92,10 @@ class LevelField:
         if down:
             self.cube.floor = 0
             self.places.append(0)
-            self.jump = False
-            self.cube.y = self.cube.height - self.cube.height // 4 - 70 - self.cube.floor
-            # self.cube.depth = True
+            self.jump = True
+            self.cube.jumping = True
+            self.cube.v = -self.cube.v
+            self.cube.jump()
 
         if self.cube.depth:
             self.v_bg = 0
@@ -122,12 +125,6 @@ class LevelField:
             self.cube.jumping = True
         else:
             self.cube.jumping = False
-            self.cube.y = self.cube.height - self.cube.height // 4 - 70 - self.cube.floor
-
-            if self.cube.counter % 2 == 0:
-                self.cube.image = self.cube.cube
-            else:
-                self.cube.image = rotation(self.cube.cube, 180)
 
         # move ground squares
         if not self.cube.moving:

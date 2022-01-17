@@ -32,7 +32,7 @@ loading = loading_screen.Loading(width, height, screen)
 
 # поле
 field = LevelField(width, height, screen)
-game = False
+game = True
 level = False
 MENU = False
 # время
