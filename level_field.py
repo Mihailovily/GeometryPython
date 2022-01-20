@@ -11,6 +11,8 @@ class LevelField:
         self.blocksX = []
         self.blocksY = []
 
+        self.to_down = False
+
         self.jump = True
 
         self.clock = pygame.time.Clock()
@@ -89,13 +91,18 @@ class LevelField:
         if not ans and self.places and self.places[-1] != 0:
             down = True
 
-        if down:
+        if down or self.to_down:
             self.cube.floor = 0
             self.places.append(0)
-            self.jump = True
-            self.cube.jumping = True
-            self.cube.v = -self.cube.v
-            self.cube.jump()
+
+            if self.cube.y + self.cube.move_vertical > self.height - self.height // 4 - 70:
+                self.cube.y = self.height - self.height // 4 - 70
+                self.to_down = False
+                self.cube.update()
+            else:
+                self.cube.down()
+                self.jump = False
+                self.to_down = True
 
         if self.cube.depth:
             self.v_bg = 0
@@ -179,3 +186,4 @@ class LevelField:
                         self.bg2.rect.x = self.bg1.rect.x + 2048
 
             self.rects_bg.clear()
+
