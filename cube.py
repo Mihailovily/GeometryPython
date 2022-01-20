@@ -20,6 +20,7 @@ class Cube(pygame.sprite.Sprite):
         self.screen = screen
         self.counter = 0
         self.clock = pygame.time.Clock()
+        self.img = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
         self.cube = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
         self.image = pygame.transform.scale(actions.load_image('cube.png'), (70, 70))
         self.moving = True
@@ -41,14 +42,9 @@ class Cube(pygame.sprite.Sprite):
             self.v = -self.v
 
         if int(self.shift) >= self.for_rotate:
-            self.for_rotate += int(self.shift) - self.for_rotate
+            self.for_rotate = int(self.shift)
 
-            if self.counter % 2 == 0:
-                self.image = self.cube
-            else:
-                self.image = actions.rotation(self.cube, 180)
-
-            self.image = actions.rotation(self.image, -self.for_rotate)
+            self.image = actions.rotation(self.cube, -self.for_rotate)
 
         if self.moving:
             self.x -= (self.image.get_rect()[2] - 70) // 2
@@ -66,12 +62,45 @@ class Cube(pygame.sprite.Sprite):
             self.counter += 1
             self.y = self.height - self.height // 4 - 70 - self.floor
             self.move_vertical = 0
-            self.shift = 0
-            self.for_rotate = 0
-            if self.counter % 2 == 0:
-                self.image = self.cube
-            else:
-                self.image = actions.rotation(self.cube, 180)
+
+            print(self.shift)
+
+            if self.for_rotate > 360:
+                self.for_rotate -= 360
+                self.shift -= 360
+
+            if self.for_rotate > 270:
+                if 360 - self.for_rotate < self.for_rotate - 270:
+                    self.cube = self.img
+                    self.for_rotate = self.shift = 0
+                else:
+                    self.cube = actions.rotation(self.img, 270)
+                    self.for_rotate = self.shift = 270
+
+            elif self.for_rotate > 180:
+                if 270 - self.for_rotate < self.for_rotate - 180:
+                    self.cube = actions.rotation(self.img, 270)
+                    self.for_rotate = self.shift = 270
+                else:
+                    self.cube = actions.rotation(self.img, 180)
+                    self.for_rotate = self.shift = 180
+
+            elif self.for_rotate > 90:
+                if 180 - self.for_rotate < self.for_rotate - 90:
+                    self.cube = actions.rotation(self.img, 180)
+                    self.for_rotate = self.shift = 180
+                else:
+                    self.cube = actions.rotation(self.img, 90)
+                    self.for_rotate = self.shift = 90
+
+            elif self.for_rotate > 0:
+                if 90 - self.for_rotate < self.for_rotate - 0:
+                    self.cube = actions.rotation(self.img, 90)
+                    self.for_rotate = self.shift = 90
+                else:
+                    self.cube = self.img
+                    self.for_rotate = self.shift = 0
+            self.image = self.cube
 
         if self.x < self.width // 3:
             move = 770 * self.time
@@ -79,3 +108,20 @@ class Cube(pygame.sprite.Sprite):
         else:
             self.moving = False
         self.rect = (self.x, self.y)
+
+    def down(self):
+        self.move_vertical = self.v * self.time
+        if self.move_vertical < 0:
+            self.move_vertical = 0
+        self.shift += self.v2 * self.time
+
+        if int(self.shift) >= self.for_rotate:
+            self.for_rotate = int(self.shift)
+
+            self.image = actions.rotation(self.image, -self.for_rotate)
+
+        self.y += self.move_vertical
+
+        self.x = self.width // 3 - (self.image.get_rect()[2] - 70) // 2
+        self.rect = (self.x, self.y)
+
