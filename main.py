@@ -32,7 +32,7 @@ loading = loading_screen.Loading(width, height, screen)
 
 # поле
 field = LevelField(width, height, screen)
-game = True
+game = False
 level = False
 MENU = False
 # время
@@ -87,20 +87,21 @@ while running:
             if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[1] - 60) ** 2 < 50 ** 2 \
                     and level is False and game is False:
                 running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - ((width - 350) // 2 + 175)) ** 2 + (
+            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - ((width - 350) // 2 + 175)) ** 2 + (
                     event.pos[1] - ((height - 350) // 2 + 175)) ** 2 < 175 ** 2 \
-                    and game is False:
+                    and game is False and level is False:
                 level = True
                 MENU = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[1] - 60) ** 2 < 50 ** 2 \
+                continue
+            if event.type == pygame.MOUSEBUTTONDOWN and (event.pos[0] - 60) ** 2 + (event.pos[1] - 60) ** 2 < 50 ** 2 \
                     and level is True and game is False:
                 level = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[1] < 470 and (width - 350) // 2 - 280 < \
+            if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[1] < 470 and (width - 350) // 2 - 280 < \
                     event.pos[0] < (width - 350) // 2 + 642 \
                     and level is True and game is False:
                 level = False
                 game = True
-            elif event.type == pygame.MOUSEBUTTONDOWN and 482 < event.pos[1] < 756 and (width - 350) // 2 - 280 < \
+            if event.type == pygame.MOUSEBUTTONDOWN and 482 < event.pos[1] < 756 and (width - 350) // 2 - 280 < \
                     event.pos[0] < (width - 350) // 2 + 642 \
                     and level is True and game is False:
                 level = False
