@@ -1,3 +1,5 @@
+import csv
+
 from cube import Cube
 from drawing import backgroundDraw, groundDraw
 from load_level import load_level
@@ -49,13 +51,16 @@ class LevelField:
 
         counterForLevel = 0
 
-        for i in load_level("test-level.txt"):
-            for obj in i:
+        with open('levels/test-level.csv') as file:
+            reader = csv.DictReader(file, delimiter=";")
+            for line_dict in reader:
+                obj = line_dict['Type']
+                lvl = line_dict['Level']
                 if obj == '.':
                     counterForLevel += 1
                 else:
-                    create_obj(obj, self.level, counterForLevel * 70 + 700 + length,
-                               self.height - self.height // 4 - 140)
+                    create_obj(obj, lvl, self.level, counterForLevel * 70 + 700 + length,
+                               self.height)
                     counterForLevel += 1
 
     def show(self):
@@ -186,4 +191,3 @@ class LevelField:
                         self.bg2.rect.x = self.bg1.rect.x + 2048
 
             self.rects_bg.clear()
-

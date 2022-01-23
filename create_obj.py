@@ -1,7 +1,7 @@
 import pygame
 from actions import load_image
 
-
+# шип
 class Thorn(pygame.sprite.Sprite):
     def __init__(self, *group):
         super().__init__(*group)
@@ -28,16 +28,17 @@ class Block(pygame.sprite.Sprite):
         self.rect.x -= self.move
 
 
-def create_obj(name, field, x, y):
-    if name == 'b':
+def create_obj(name, level, field, x, y):
+    level = int(level) + 1
+    if name == 'Block':
         obj_img = pygame.transform.scale(load_image("block.png"), (70, 70))
         obj = Block(field)
-    elif name == 't':
+    elif name == 'Spike':
         obj_img = pygame.transform.scale(load_image("thorn.png"), (70, 70))
         obj = Thorn(field)
     obj.image = obj_img
     obj.rect = obj.image.get_rect()
     obj.rect.x = x
-    obj.rect.y = y
+    obj.rect.y = y - y // 4 - 70 * int(level)
 
     return obj
