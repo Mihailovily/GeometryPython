@@ -12,6 +12,8 @@ def play_music(a):
         pygame.mixer.music.load("music/1.mp3")
     elif a == '2':
         pygame.mixer.music.load("music/2.mp3")
+    elif a == '0':
+        pygame.mixer.music.load("music/tishiny.mp3")
     pygame.mixer.music.play(-1)
 
 
