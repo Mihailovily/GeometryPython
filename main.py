@@ -6,6 +6,7 @@ from menu import Menu
 from menu import Levels
 from menu import Settings
 from menu import playing_music
+from menu import play_music
 import antipirate
 import os
 import time
@@ -113,10 +114,14 @@ while running:
                     and SETTINGS is True and game is False:
                 SETTINGS = False
                 MENU = True
-            if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[1] < 470 and (width - 350) // 2 - 280 < \
-                    event.pos[0] < (width - 350) // 2 + 642 \
+            if event.type == pygame.MOUSEBUTTONDOWN and 466 < event.pos[0] < 727 and 320 < event.pos[1] < 400 \
                     and level is False and game is False and SETTINGS is True:
-                playing_music = False
+                play_music('0')
+                playing_music = True
+            if event.type == pygame.MOUSEBUTTONDOWN and 767 < event.pos[0] < 979 and 320 < event.pos[1] < 400 \
+                    and level is False and game is False and SETTINGS is True:
+                play_music('menu')
+                playing_music = True
             if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[1] < 470 and (width - 350) // 2 - 280 < \
                     event.pos[0] < (width - 350) // 2 + 642 \
                     and level is True and game is False and SETTINGS is False:
