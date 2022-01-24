@@ -218,7 +218,6 @@ class Levels:
         level_1.image = pygame.transform.scale(level_1_img, (level_1.image.get_rect()[2] * 0.5,
                                                              level_1.image.get_rect()[3] * 0.5))
         level_1.rect = level_1.image.get_rect()
-        print(level_1.image.get_rect()[2])
         level_1.rect.x = (width - 350) // 2 - 370
         level_1.rect.y = 460
 
@@ -228,7 +227,6 @@ class Levels:
         level_2.image = pygame.transform.scale(level_2_img, (level_2.image.get_rect()[2] * 0.5,
                                                              level_2.image.get_rect()[3] * 0.5))
         level_2.rect = level_2.image.get_rect()
-        print(level_2.image.get_rect()[2])
         level_2.rect.x = (width - 350) // 2 - 395
         level_2.rect.y = 120
 
