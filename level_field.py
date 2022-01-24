@@ -1,5 +1,7 @@
 import csv
 
+import pygame
+
 from cube import Cube
 from drawing import backgroundDraw, groundDraw
 from load_level import load_level
@@ -8,7 +10,7 @@ from actions import rotation
 
 
 class LevelField:
-    def __init__(self, width, height, screen):
+    def __init__(self, width, height, screen, path):
         self.places = []
         self.blocksX = []
         self.blocksY = []
@@ -44,14 +46,14 @@ class LevelField:
 
         self.level = pygame.sprite.Group()
 
-        self.create_level(0)
+        self.create_level(0, path)
 
-    def create_level(self, length):
+    def create_level(self, length, path):
         self.level = pygame.sprite.Group()
 
         counterForLevel = 0
 
-        with open('levels/test-level.csv') as file:
+        with open(path) as file:
             reader = csv.DictReader(file, delimiter=";")
             for line_dict in reader:
                 obj = line_dict['Type']

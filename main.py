@@ -12,7 +12,6 @@ import time
 
 # потом убрать надо
 # antipirate.generate_license()
-
 # определение размеров экрана
 root = Tk()
 height = root.winfo_screenheight()
@@ -21,7 +20,11 @@ width = root.winfo_screenwidth()
 pygame.init()
 size = width, height
 screen = pygame.display.set_mode(size)
-# antipirate.no_license_alarm()
+try:
+    if not antipirate.check_license():
+        antipirate.no_license_alarm()
+except Exception as E:
+    print('Кажется, нет интернета')
 running = True
 
 # менюшка
@@ -35,11 +38,12 @@ settings = Settings(screen, width, height)
 loading = loading_screen.Loading(width, height, screen)
 
 # поле
-field = LevelField(width, height, screen)
+field = LevelField(width, height, screen, 'levels/1.csv')
 game = False
 level = False
 MENU = False
 SETTINGS = False
+levelnum = 1
 # время
 clock = pygame.time.Clock()
 while running:
@@ -74,7 +78,10 @@ while running:
                         field.show()
 
                 if field.cube.depth:
-                    field.create_level(700)
+                    if levelnum == 1:
+                        field.create_level(700, 'levels/1.csv')
+                    else:
+                        field.create_level(700, 'levels/2.csv')
 
                     field.cube.depth = False
                     field.cube.counter = 0
@@ -122,16 +129,16 @@ while running:
                     and level is True and game is False and SETTINGS is False:
                 level = False
                 game = True
+                levelnum = 1
             if event.type == pygame.MOUSEBUTTONDOWN and 482 < event.pos[1] < 756 and (width - 350) // 2 - 280 < \
                     event.pos[0] < (width - 350) // 2 + 642 \
                     and level is True and game is False and SETTINGS is False:
                 level = False
                 game = True
+                levelnum = 2
 
     pygame.display.flip()
 
-# if os.path.exists("screenshot.jpg"):
-#     os.remove("screenshot.jpg")
 # подчистка следов
 if os.path.exists("screenshot.jpg"):
     os.remove("screenshot.jpg")
